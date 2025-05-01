@@ -1,0 +1,15 @@
+.text-with-icon {
+    font-size: 1em;
+    /* Ensure the font size is set explicitly */
+    line-height: 1;
+    /* This helps align the text vertically with the image */
+}
+
+.icon-with-text {
+    height: 1em;
+    /* This sets the height of the image to match the text size */
+    width: auto;
+    /* This maintains the aspect ratio of the image */
+    margin-right: 0.5em;
+    /* This adds some space between the icon and the text */
+}

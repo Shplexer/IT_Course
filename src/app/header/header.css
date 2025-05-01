@@ -1,0 +1,237 @@
+/* General header styles */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    border-bottom: 1px solid #eaeaea;
+    flex-wrap: wrap;
+}
+
+.header-menu {
+    padding: 0 5%;
+}
+
+/* Logo styles */
+.logo {
+    flex: 0 0 150px;
+}
+
+.logoImage {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Addresses styles */
+.addresses {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.addresses-item {
+    display: flex;
+    align-items: center;
+}
+
+.addresses-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* Contacts styles */
+.contacts {
+    flex: 0 0 auto;
+}
+
+.contact-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.contact-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.text-with-icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.text-with-icon:hover {
+    color: #0066cc;
+}
+
+/* Cart styles */
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cart:hover {
+    background-color: #0055aa;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff3333;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+/* Menu styles */
+.menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+}
+
+.menu li {
+    position: relative;
+    padding: 15px 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.menu a:hover {
+    color: #0066cc;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 200px;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.menu li:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown li {
+    padding: 0;
+}
+
+.dropdown a {
+    padding: 8px 20px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.dropdown a:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .header-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .addresses, .contacts {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .contact-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .menu ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-info {
+        padding: 15px 20px;
+    }
+    
+    .header-menu {
+        padding: 0 20px;
+    }
+    
+    .menu ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .menu li {
+        padding: 8px 0;
+    }
+    
+    .dropdown {
+        position: static;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        padding: 5px 0 5px 20px;
+    }
+}

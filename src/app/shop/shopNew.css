@@ -1,0 +1,275 @@
+/* shop.css */
+
+/* General styles for the shop page */
+.shop-wrap {
+    display: flex;
+}
+
+.products-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    flex: 5;
+}
+
+.products-item-wrap {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.products-item-wrap:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.products-item-pic {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    background: #f8f8f8;
+}
+
+.products-item-name {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #333;
+    font-weight: 600;
+}
+
+.price-wrap {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.products-item-price {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.products-item-price.onSale {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.products-item-sale-price {
+    font-size: 1.2rem;
+    color: #e53935;
+    font-weight: 700;
+}
+
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Search bar styles */
+.search-bar-wrap {
+    display: flex;
+    max-width: 600px;
+    margin: 1rem auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.search-bar {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.find-button {
+    padding: 0 1.5rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.find-button:hover {
+    background: #3d8b40;
+}
+
+/* Filters styles */
+.filters-wrap {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    flex: 1;
+}
+
+.filters-wrap h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.3rem;
+}
+
+.filter-item {
+    margin-bottom: 1.5rem;
+}
+
+.filter-item label {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.filter-item input[type="number"] {
+    width: 80px;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.apply-filters {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.apply-filters:hover {
+    background: #0b7dda;
+}
+
+/* Slider styles */
+.rc-slider {
+    margin: 1rem 0;
+}
+
+.rc-slider-track {
+    background: #2196F3;
+}
+
+.rc-slider-handle {
+    border: solid 2px #2196F3;
+}
+
+.rc-slider-handle:active {
+    box-shadow: 0 0 5px #2196F3;
+}
+
+/* Buy button and quantity controls */
+.quantity-control {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.buy-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.buy-button:hover {
+    background: #3d8b40;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+.quantity-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10%;
+    border: none;
+    background: #f0f0f0;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.quantity-button:hover {
+    background: #e0e0e0;
+}
+
+.quantity-button.plus {
+    background: #4CAF50;
+    color: white;
+}
+
+.quantity-button.plus:hover {
+    background: #3d8b40;
+}
+
+.quantity-button.minus {
+    background: #f44336;
+    color: white;
+}
+
+.quantity-button.minus:hover {
+    background: #d32f2f;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
