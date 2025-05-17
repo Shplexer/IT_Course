@@ -4,15 +4,14 @@
 //import { useState } from "react";
 import { Filters, SearchBar } from "./ShopTools.js";
 import ProductList from "./ProductList.js";
-import connection from "../lib/db.js";
-import { getCart } from "./shopCookies.js";
-import "./shopNew.css"
+import connection from "../_lib/db.js";
+import { getCart } from "@/app/_lib/cookies.js";
+import styles from "./shopNew.module.css"
 export default async function Shop({ searchParams }) {
         let client;
         let prices = 0;
         console.log(await getCart());
         try {
-            //get max and min price from products
             client = await connection.connect();
             prices = await connection.query(`
                 SELECT
@@ -32,7 +31,7 @@ export default async function Shop({ searchParams }) {
                 <div>
                     
                     <SearchBar />
-                    <div className="shop-wrap">
+                    <div className={styles["shop-wrap"]}>
                         <Filters prices={prices.rows[0]} />
                         
                         {(await searchParams).price_min ? <ProductList filters={await searchParams} /> : <ProductList filters={prices.rows[0]} />  }

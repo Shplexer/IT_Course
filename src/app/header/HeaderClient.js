@@ -1,10 +1,11 @@
 "use client"
 import './header.css';
 import '../../../public/general.css';
+import LoginOverlay from '../login/page';
 import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link'
-export default function Header({numToDisplay}) {
+export default function Header({ numToDisplay }) {
 	return (
 		<header className='header'>
 			<div className='header-info'>
@@ -12,7 +13,7 @@ export default function Header({numToDisplay}) {
 				<Logo />
 				<Addresses />
 				<Socials />
-				<Contacts numToDisplay={numToDisplay}/>
+				<Contacts numToDisplay={numToDisplay} />
 			</div>
 			<div className='header-menu'>
 				<Menu />
@@ -28,42 +29,47 @@ function Logo() {
 			<a href='/'>
 				<img
 					className='logoImage'
-					src='./icons/logo.jpg'
+					src='/icons/logo.jpg'
 				/>
 			</a>
 		</div>
 	);
 }
 
-function Contacts({numToDisplay}) {
+function Contacts({ numToDisplay }) {
 	const [cartCount, setCartCount] = useState(numToDisplay);
-	  // Sync with server when prop changes
-	  useEffect(() => {
+	// Sync with server when prop changes
+	useEffect(() => {
 		setCartCount(numToDisplay);
-	  }, [numToDisplay]);
+	}, [numToDisplay]);
 
 	return (
 		<div className='contacts'>
 			<div className='contact-actions'>
 				<div className="contact-item">
 					<img
-						src='./icons/envelope.png'
+						src='/icons/envelope.png'
 						className='contact-icon icon-with-text'
 					/>
 					<a className='text-with-icon' href='mailto:info@ventilation.com'>info@ventilation.com</a>
 				</div>
 				<div className="contact-item">
 					<img
-						src='./icons/phone-call.png'
+						src='/icons/phone-call.png'
 						className='contact-icon icon-with-text'
 					/>
 					<a className='text-with-icon' href='tel:+78005553535'>8 (800) 555-35-35</a>
 				</div>
-				<div className="cart-icon">
-				<Link href={'/cart'}>
-					<button className='cart'>Корзина</button>
-				</Link>
-				<span className="cart-count">{cartCount}</span>
+				<div className='button-container'>
+					<div className='login-icon'>
+						<LoginOverlay />
+					</div>
+					<div className="cart-icon">
+						<Link href={'/cart'}>
+							<button className='cart'>Корзина</button>
+						</Link>
+						<span className="cart-count">{cartCount}</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -78,7 +84,7 @@ function Addresses() {
 		<div className='addresses'>
 			<div className='addresses-item'>
 				<img
-					src='./icons/marker.png'
+					src='/icons/marker.png'
 					className='addresses-icon icon-with-text'
 				/>
 				<a className='text-with-icon' href='https://maps.google.com/?q=ventilation+company'>г. Санкт-Петербург, ул. Пушкина, д. Колотушкина</a>
@@ -109,7 +115,7 @@ function Menu() {
 							{item.isDroppable && (
 
 								<img
-									src='./icons/angle-small-down.png'
+									src='/icons/angle-small-down.png'
 									className='icon-with-text'
 									style={{
 										height: '1em',

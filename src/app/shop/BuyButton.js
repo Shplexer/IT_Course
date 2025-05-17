@@ -1,18 +1,24 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { createCookie } from './shopCookies';
+import { addToCart } from '@/app/_lib/cookies';
 import Link from 'next/link';
+import styles from "./shopNew.module.css"
 
-export default function BuyButton({ productId, initQuantity = 0 }) {
+export default function BuyButton({ productId, initQuantity = 0, totalQuantity, unit_price }) {
+  console.log(`барабулька барабан`);
   const [quantity, setQuantity] = useState(initQuantity);
-  
+
   useEffect(() => {
+    if(quantity > totalQuantity){
+      setQuantity(totalQuantity);
+    }
     if (quantity !== initQuantity) {
       const dataToSaveToCookies = {
         productId: productId,
-        quantity: quantity
+        quantity: quantity,
+        unit_price: unit_price
       };
-      createCookie({ dataToSaveToCookies });
+      addToCart({ dataToSaveToCookies });
     }
   }, [quantity, productId, initQuantity]);
 
@@ -28,25 +34,38 @@ export default function BuyButton({ productId, initQuantity = 0 }) {
     setQuantity(1);
   }
 
+  // If totalQuantity is 0, show "товары закончились" button
+  if (totalQuantity === 0) {
+    return (
+      <div className={styles["quantity-control"]}>
+        <button className={`${styles["buy-button"]} ${styles["out-of-stock"]}`} disabled>
+          Товары закончились
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="quantity-control">
+    <div className={styles["quantity-control"]}>
       {quantity === 0 ? (
-        <button className="buy-button" onClick={handleAdd}>
+        <button className={styles["buy-button"]} onClick={handleAdd}>
           Купить
         </button>
       ) : (
-        <div className="quantity-selector">
-          <button className="quantity-button minus" onClick={handleDecrement}>
+        <div className={styles["quantity-selector"]}>
+          <button className={`${styles["quantity-button"]} ${styles["minus"]}`} onClick={handleDecrement}>
             -
           </button>
           <Link href={'/cart'}>
-            <button className="buy-button">
+            <button className={styles["buy-button"]}>
               В корзине: {quantity} шт.
             </button>
           </Link>
-          <button className="quantity-button plus" onClick={handleIncrement}>
-            +
-          </button>
+          {quantity < totalQuantity && 
+            <button className={`${styles["quantity-button"]} ${styles["plus"]}`} onClick={handleIncrement}>
+              +
+            </button>
+          }
         </div>
       )}
     </div>

@@ -40,6 +40,7 @@
 
 .cart-item:hover {
     transform: translateY(-3px);
+    cursor: pointer;
 }
 
 .product-image-container {
@@ -66,16 +67,42 @@
     justify-content: space-between;
 }
 
+.upper-container{
+    display: flex;
+    justify-content: space-between;
+}
+
 .product-name {
     margin: 0 0 0.5rem 0;
     color: #2c3e50;
     font-size: 1.3rem;
+}
+.delete-icon{
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+.delete-icon:hover{
+    cursor: pointer;
+    background: rgb(221, 219, 219);
+    transition-duration: 0.2s;
 }
 
 .product-price {
     margin: 0.5rem 0;
     font-size: 1.1rem;
     color: #34495e;
+}
+.product-sale-price {
+    font-size: 1.2rem;
+    color: #e53935;
+    font-weight: 700;
+}
+.onSale{
+    text-decoration: line-through;
+    color: #999;
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 .sale-badge {
