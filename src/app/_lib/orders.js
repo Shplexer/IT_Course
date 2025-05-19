@@ -2,14 +2,14 @@
 import { revalidatePath } from "next/cache";
 import { getCart } from "./cookies";
 import connection from "./db"
-import { sendOrderMail } from "./sendMail";
+import { sendOrderMail, sendRegisteredUserData } from "./sendMail";
 
 async function executeTransaction(email, orderItems, comment, name, phone) {
     const client = connection.connect();
     try {
         const userRes = await connection.query(`
             WITH find_user AS (
-                SELECT user_id FROM users WHERE email = $1
+                SELECT user_id, NULL as temp_password FROM users WHERE email = $1
             ),
             create_user AS (
                 INSERT INTO users (username, email, phone, password, Name)
@@ -20,18 +20,18 @@ async function executeTransaction(email, orderItems, comment, name, phone) {
                     substr(md5(random()::text), 1, 20),
                     $3
                 WHERE NOT EXISTS (SELECT 1 FROM find_user)
-                RETURNING user_id
+                RETURNING user_id, password as temp_password
             )
-            SELECT user_id FROM find_user
+            SELECT user_id, temp_password FROM find_user
             UNION ALL
-            SELECT user_id FROM create_user
+            SELECT user_id, temp_password FROM create_user
             LIMIT 1
         `, [email, phone, name]);
 
         const userId = userRes.rows[0]?.user_id;
+        const tempPassword = userRes.rows[0]?.temp_password; // This will be null for existing users
         if (!userId) throw new Error('User resolution failed');
 
-        // 2. Create order
         const orderRes = await connection.query(`
             INSERT INTO orders (user_id, order_date, status, payment_status, comment)
             VALUES ($1, NOW(), 'pending', 'unpaid', $2)
@@ -41,9 +41,6 @@ async function executeTransaction(email, orderItems, comment, name, phone) {
         const orderId = orderRes.rows[0]?.order_id;
         if (!orderId) throw new Error('Order creation failed');
 
-        // 3. Insert items
-        console.log(orderItems);
-        console.log("!!!!!!!!");
         for (const item of orderItems) {
             await connection.query(`
                 INSERT INTO order_items 
@@ -56,7 +53,12 @@ async function executeTransaction(email, orderItems, comment, name, phone) {
                 item.unit_price
             ]);
         }
-        return { orderId, userId };
+        
+        return {
+            orderId,
+            tempPassword, // Will be null if user already existed
+            isNewUser: tempPassword !== null // Flag indicating if this is a new user
+        };
     } catch (error) {
         error.isTransactionError = true;
         throw error;
@@ -67,6 +69,15 @@ export async function handleOrderSubmission(formData) {
     // Get all form values
     console.log(formData);
     const cart = await getCart();
+    const name = `${formData.get('surname')} ${formData.get('name')} ${formData.get('patronymic')}`;
+    const { orderId, tempPassword, isNewUser } = await executeTransaction(
+        formData.get('email'), 
+        await cart, 
+        formData.get('comment'), 
+        name, 
+        formData.get('phone')
+    );
+    
     const orderData = {
         customer: {
             name: formData.get('name'),
@@ -75,18 +86,20 @@ export async function handleOrderSubmission(formData) {
             email: formData.get('email'),
             phone: formData.get('phone'),
             address: formData.get('address'),
-            comment: formData.get('comment')
+            comment: formData.get('comment'),
         },
+        orderId: orderId,
         products: await cart
         // total: total
     };
-    const name = `${formData.get('surname')} ${formData.get('name')} ${formData.get('patronymic')}`;
 
     console.log('Order data:', orderData);
-    executeTransaction(formData.get('email'), await cart, formData.get('comment'), name, formData.get('phone'))
-    sendOrderMail(formData.get('email'), orderData)
+    sendOrderMail(formData.get('email'), orderData);
+    if(isNewUser){
+        sendRegisteredUserData(formData.get('email'), tempPassword)
+    }
+    return orderId;
 }
-
 export async function getOrders() {
     try{
 
@@ -124,7 +137,7 @@ export async function getOrders() {
 }
 
 export async function ChangeOrderStatus(id, status) {
-    connection.connect();
+    // await connection.connect();
     console.log(`${id}: changed status to ${status}`)
     try {
         await connection.query(`
@@ -132,15 +145,16 @@ export async function ChangeOrderStatus(id, status) {
             SET status = $1
             WHERE order_id = $2;
         `, [status, id]);
-        revalidatePath('/', 'layout');
+        //revalidatePath('/', 'layout');
     } catch (error) {
         console.error(error);
     }
 }
 
 export async function DeleteOrder(id) {
-    connection.connect();
+    // await connection.connect();
     try {
+        console.log('deleted');
         await connection.query(`
             DELETE FROM orders
             WHERE order_id = $1;

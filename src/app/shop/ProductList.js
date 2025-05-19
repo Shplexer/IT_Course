@@ -13,6 +13,7 @@ import { fetchProductsByFilters } from "../_lib/products";
 export default async function ProductList({ filters }) {
   const cart = await getCart();
   const products = await fetchProductsByFilters(filters);
+  console.log(filters, products);
   return (
     <div className={styles["products-wrap"]}>
       {products.length > 0 ? (
@@ -23,18 +24,19 @@ export default async function ProductList({ filters }) {
 
           return (
             <div key={product.prodid} className={styles[`products-item-wrap`]}>
-                <Link href={`shop/${product.prodid}`}>
+              <Link href={`shop/${product.prodid}`}>
                 <img
                   className={styles["products-item-pic"]}
                   src={`/products/${product.picpath}` || '/products/default.png'}
                   alt={product.name}
                 />
                 <h3 className={styles["products-item-name"]}>{product.name}</h3>
+              </Link>
+              <div className={styles["bottom-section"]}>
                 <div className={styles["price-wrap"]}>
                   <p className={`${product.isonsale ? `${styles["onSale"]}` : ''} ${styles["products-item-price"]}`}>{product.price} руб.</p>
                   {product.isonsale && <p className={styles["products-item-sale-price"]}>{product.saleprice} руб.</p>}
                 </div>
-                </Link>
                 <BuyButton
                   productId={product.prodid}
                   unit_price={product.isonsale ? product.saleprice : product.price}
@@ -42,6 +44,7 @@ export default async function ProductList({ filters }) {
                   totalQuantity={maxQuantity}
                 />
               </div>
+            </div>
           );
         })
       ) : (

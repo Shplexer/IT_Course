@@ -2,24 +2,29 @@
 
 import { useEffect, useState } from 'react';
 import styles from './loginOverlay.module.css';
-import { checkLogin } from '../_lib/users';
+import { checkLogin, registerUser } from '../_lib/users';
 import { checkIfAdmin, createSessionCookie, getSessionCookie } from '../_lib/cookies';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+
 export default function LoginOverlay() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isRegisterMode, setIsRegisterMode] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [patronymic, setPatronymic] = useState('');
+    const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
     const [isAdmin, setAdminStatus] = useState(false);
-    const [istLoggedIn, setLoggedStatus] = useState(false);
+    const [isLoggedIn, setLoggedStatus] = useState(false);
     const pathname = usePathname();
     const searchParams = useSearchParams();
+
     useEffect(() => {
         const checkIfLogged = async () => {
             const check = await getSessionCookie();
-            console.log("check");
-
             if (check) {
                 setLoggedStatus(true);
             } else {
@@ -41,9 +46,25 @@ export default function LoginOverlay() {
         setError('');
         setEmail('');
         setPassword('');
+        setName('');
+        setSurname('');
+        setPatronymic('');
+        setPhone('');
+        setIsRegisterMode(false);
     };
 
-    const handleLogin = async (e) => { // Make this async
+    const toggleRegisterMode = () => {
+        setIsRegisterMode(!isRegisterMode);
+        setError('');
+        setEmail('');
+        setPassword('');
+        setName('');
+        setSurname('');
+        setPatronymic('');
+        setPhone('');
+    };
+
+    const handleLogin = async (e) => {
         e.preventDefault();
         if (!email || !password) {
             setError('Пожалуйста заполните все поля');
@@ -51,19 +72,16 @@ export default function LoginOverlay() {
         }
 
         try {
-            const token = await checkLogin(email, password); // Await the token
+            const token = await checkLogin(email, password);
             if (!token) {
                 setError('Ошибка авторизации. Проверьте свой логин или пароль.');
                 return;
             }
 
             setError('');
-            await createSessionCookie(token); // Await cookie creation
-            // console.log(`==============isadmin=================`);
-            // console.log(await checkIfAdmin()); // Await admin check
+            await createSessionCookie(token);
             setAdminStatus(await checkIfAdmin());
             setLoggedStatus(true);
-            // console.log(`==============isadmin=================`);
             toggleOverlay();
         } catch (err) {
             setError('Ошибка авторизации. Пожалуйста, попробуйте снова.');
@@ -71,22 +89,50 @@ export default function LoginOverlay() {
         }
     };
 
-    const handleSignUp = (e) => {
-        e.preventDefault();
-        if (!email || !password) {
-            setError('Пожалуйста заполните все поля');
+const handleRegister = async (e) => {
+    e.preventDefault();
+    if (!email || !password || !name || !surname) {
+        setError('Пожалуйста заполните обязательные поля (имя, фамилия, email, пароль)');
+        return;
+    }
+
+    try {
+        const userData = {
+            email,
+            password,
+            name,
+            surname,
+            patronymic: patronymic || null,
+            phone: phone || null
+        };
+
+        const result = await registerUser(userData);
+        
+        // Check if the result has an error property
+        if (result && result.error) {
+            setError(result.error);
             return;
         }
-        console.log('Sign up with:', email, password);
-        setError('');
-        toggleOverlay();
-    };
 
+        if (!result) {
+            setError('Ошибка регистрации. Пожалуйста, попробуйте снова.');
+            return;
+        }
+
+        setError('');
+        await createSessionCookie(result); // result is the token in successful case
+        setAdminStatus(await checkIfAdmin());
+        setLoggedStatus(true);
+        toggleOverlay();
+    } catch (err) {
+        setError('Ошибка регистрации. Пожалуйста, попробуйте снова.');
+        console.error("Registration error:", err);
+    }
+};
     return (
         <>
-            {istLoggedIn ? (
+            {isLoggedIn ? (
                 <Link href='/userAccount'>
-
                     <button className={styles.openButton}>
                         Личный кабинет
                     </button>
@@ -95,9 +141,7 @@ export default function LoginOverlay() {
                 <button onClick={toggleOverlay} className={styles.openButton}>
                     Вход
                 </button>
-            )
-            }
-
+            )}
 
             {isOpen && (
                 <div className={styles.overlay}>
@@ -106,8 +150,12 @@ export default function LoginOverlay() {
                             &times;
                         </button>
 
-                        <h2 className={styles.overlayTitle}>Добро пожаловать</h2>
-                        <p className={styles.overlaySubtitle}>Введите авторизационные данные</p>
+                        <h2 className={styles.overlayTitle}>
+                            {isRegisterMode ? 'Регистрация' : 'Добро пожаловать'}
+                        </h2>
+                        <p className={styles.overlaySubtitle}>
+                            {isRegisterMode ? 'Заполните данные для регистрации' : 'Введите авторизационные данные'}
+                        </p>
 
                         {error && (
                             <div className={styles.errorMessage}>
@@ -116,9 +164,73 @@ export default function LoginOverlay() {
                         )}
 
                         <form className={styles.overlayForm}>
+                            {isRegisterMode && (
+                                <>
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="name" className={styles.formLabel}>
+                                            Имя:*
+                                        </label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            className={styles.formInput}
+                                            placeholder="Введите имя"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="surname" className={styles.formLabel}>
+                                            Фамилия:*
+                                        </label>
+                                        <input
+                                            id="surname"
+                                            name="surname"
+                                            type="text"
+                                            className={styles.formInput}
+                                            placeholder="Введите фамилию"
+                                            value={surname}
+                                            onChange={(e) => setSurname(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="patronymic" className={styles.formLabel}>
+                                            Отчество:
+                                        </label>
+                                        <input
+                                            id="patronymic"
+                                            name="patronymic"
+                                            type="text"
+                                            className={styles.formInput}
+                                            placeholder="Введите отчество (если есть)"
+                                            value={patronymic}
+                                            onChange={(e) => setPatronymic(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label htmlFor="phone" className={styles.formLabel}>
+                                            Телефон:
+                                        </label>
+                                        <input
+                                            id="phone"
+                                            name="phone"
+                                            type="tel"
+                                            className={styles.formInput}
+                                            placeholder="Введите телефон"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                        />
+                                    </div>
+                                </>
+                            )}
+
                             <div className={styles.formGroup}>
                                 <label htmlFor="email" className={styles.formLabel}>
-                                    Электронная почта:
+                                    Электронная почта:*
                                 </label>
                                 <input
                                     id="email"
@@ -133,7 +245,7 @@ export default function LoginOverlay() {
 
                             <div className={styles.formGroup}>
                                 <label htmlFor="password" className={styles.formLabel}>
-                                    Пароль
+                                    Пароль:*
                                 </label>
                                 <input
                                     id="password"
@@ -149,17 +261,17 @@ export default function LoginOverlay() {
                             <div className={styles.buttonGroup}>
                                 <button
                                     type="submit"
-                                    onClick={handleLogin}
+                                    onClick={isRegisterMode ? handleRegister : handleLogin}
                                     className={styles.primaryButton}
                                 >
-                                    Вход
+                                    {isRegisterMode ? 'Зарегистрироваться' : 'Вход'}
                                 </button>
                                 <button
-                                    type="submit"
-                                    onClick={handleSignUp}
+                                    type="button"
+                                    onClick={toggleRegisterMode}
                                     className={styles.secondaryButton}
                                 >
-                                    Регистрация
+                                    {isRegisterMode ? 'Уже есть аккаунт? Войти' : 'Регистрация'}
                                 </button>
                             </div>
                         </form>

@@ -6,7 +6,6 @@ import styles from './userAccount.module.css'; // New CSS module for this compon
 import { GetUserData, UpdateUserData } from "../_lib/users";
 
 export default function UserAccountForm() {
-    // ... (keep all the existing state and logic from previous implementation)
     const [isLoggedIn, setLoggedStatus] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -122,7 +121,7 @@ export default function UserAccountForm() {
             setLoggedStatus(false);
         } finally {
             router.push('/');
-            router.refresh(); // Force a client-side re-render
+            router.refresh();
         }
     };
 

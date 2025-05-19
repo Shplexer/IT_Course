@@ -304,6 +304,7 @@
 }
 
 .products-grid {
+    overflow-x: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 1.5rem;
@@ -424,4 +425,183 @@
 
 .checkbox-label {
   font-size: 16px;
+}
+
+/* components/ProductTypeEditor.module.css */
+
+.editorContainer {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.tableSection {
+  margin-bottom: 40px;
+  overflow-x: auto;
+
+}
+
+.tableSection h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+.dataTable {
+    
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.dataTable th,
+.dataTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dataTable th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.dataTable tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actionsCell {
+  white-space: nowrap;
+}
+
+.editInput,
+.editSelect {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.editButton,
+.saveButton,
+.deleteButton,
+.cancelButton {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.editButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #45a049;
+}
+
+.saveButton {
+  background-color: #2196F3;
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: #0b7dda;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #da190b;
+}
+
+.cancelButton {
+  background-color: #ff9800;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #e68a00;
+}
+
+/* Additional styles for creation functionality */
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.addButton {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+.addButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.createForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.formInput, .formSelect {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+.formSelect {
+  min-width: 200px;
+}
+
+/* Add to userAccount.module.css */
+.delete-button {
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+.delete-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #ff4444;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #ffeeee;
+    border-radius: 4px;
+    text-align: center;
 }

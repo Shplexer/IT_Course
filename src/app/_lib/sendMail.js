@@ -184,3 +184,16 @@ export async function sendOrderMail(email, orderData) {
     return { success: false, error: error.message };
   }
 }
+
+export async function sendRegisteredUserData(email, password) {
+
+      const info = await transporter.sendMail({
+      from: `"ВентЧасти" <${process.env.EMAIL_USER}>`,
+      to: email, 
+      subject: `Регистрация на сайте ВентЧасти!`,
+      text: `Ваш временный пароль: ${password}`
+    });
+
+    console.log('Message sent: %s', info.messageId);
+    return { success: true, messageId: info.messageId };
+}

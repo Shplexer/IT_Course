@@ -4,12 +4,10 @@ let pg;
 if (typeof window === 'undefined') {
   pg = require('pg');
 } else {
+  console.log(typeof window);
   pg = null;
 }
 
-// const connection = pg ? new pg.Pool({
-
-// }) : null;
 const connection = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -19,3 +17,6 @@ const connection = new pg.Pool({
 })
 
 export default connection;
+// const connection = pg ? new pg.Pool({
+
+// }) : null;

@@ -10,7 +10,10 @@
     margin-top: 1rem;
     flex: 5;
 }
-
+.bottom-section {
+    margin-top: auto;
+    width: 100%;
+}
 .products-item-wrap {
     background: white;
     border-radius: 8px;
@@ -19,6 +22,7 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 25rem;
 }
 
 .products-item-wrap:hover {
@@ -127,8 +131,12 @@
     font-size: 1.3rem;
 }
 
+.slider-container{
+    margin-top: 1.5rem;
+}
 .filter-item {
     margin-bottom: 1.5rem;
+    gap:1px;
 }
 
 .filter-item label {
@@ -141,8 +149,9 @@
 
 .filter-item input[type="number"] {
     width: 80px;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
+    padding: 0.3rem;
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -156,6 +165,7 @@
     cursor: pointer;
     font-weight: 600;
     transition: background 0.2s ease;
+    margin: 0.2rem;
 }
 
 .apply-filters:hover {
@@ -182,7 +192,7 @@
 /* Buy button and quantity controls */
 .quantity-control {
     margin-top: auto;
-    padding-top: 1rem;
+    /* padding-top: 1rem; */
 }
 
 .buy-button {
@@ -249,3 +259,22 @@
     background: #d32f2f;
 }
 
+/* Add to shopNew.module.css */
+.filter-item input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.filter-item label {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.filter-options {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+.filter-label{
+    margin: 5px;
+}

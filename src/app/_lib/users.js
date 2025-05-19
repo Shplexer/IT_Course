@@ -61,7 +61,53 @@ export async function GetUserData(id) {
     }
     
 }
+export async function registerUser(userData) {
+    // First check if email already exists
+    const checkEmailQuery = `
+        SELECT user_id FROM users WHERE email = $1;
+    `;
+    
+    try {
+        // Check if email exists
+        const emailCheck = await executeQuery(checkEmailQuery, [userData.email]);
+        if (emailCheck) {
+            throw new Error('Пользователь с такой почтой уже зарегистрирован');
+        }
 
+        // If email doesn't exist, proceed with registration
+        const registerQuery = `
+            INSERT INTO users (email, password, name, surname, patronymic, phone, is_admin)
+            VALUES ($1, $2, $3, $4, $5, $6, false)
+            RETURNING user_id, email, is_admin;
+        `;
+        
+        const results = await executeQuery(registerQuery, [
+            userData.email,
+            userData.password,
+            userData.name,
+            userData.surname,
+            userData.patronymic,
+            userData.phone
+        ]);
+        
+        if (results) {
+            const secret = process.env.SECRET_TOKEN_JWT;
+            const payload = {
+                userId: results.user_id,
+                username: results.email,
+                role: results.is_admin
+            };
+            const token = jwt.sign(payload, secret);
+            return token;
+        } else {
+            throw new Error('Registration failed');
+        }
+    } catch (err) {
+        console.error("Registration error:", err);
+        // Return the specific error message to be displayed to the user
+        return { error: err.message };
+    }
+}
 export async function UpdateUserData(id, data) {
     const query = `
     UPDATE users SET email = $1, name = $2, patronymic = $3, surname = $4, phone = $5 WHERE user_id = $6;

@@ -8,5 +8,10 @@ const nextConfig = {
       DB_NAME: process.env.DB_NAME,
       DB_PORT: process.env.DB_PORT,
     },
+    experimental:{
+      serverActions:{
+        bodySizeLimit: '10mb' 
+      }
+    }
   };
 export default nextConfig;

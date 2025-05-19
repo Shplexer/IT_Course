@@ -25,22 +25,22 @@ function PromoTab() {
 	const [oppositeDirection, setOppositeDirection] = useState('prev');
 	const promos = [
 		{
-			productImage: './products/prod-1.png',
-			backgroundImage: './backgrounds/bg1.jpg',
+			productImage: '/products/prod-1.png',
+			backgroundImage: '/backgrounds/bg1.jpg',
 			text: 'ТОВАР 1',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
 		},
 		{
-			productImage: './products/prod-2.png',
-			backgroundImage: './backgrounds/bg2.jpg',
+			productImage: '/products/prod-2.png',
+			backgroundImage: '/backgrounds/bg2.jpg',
 			text: 'ТОВАР 2',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
 		},
 		{
-			productImage: './products/prod-3.png',
-			backgroundImage: './backgrounds/bg3.jpg',
+			productImage: '/products/prod-3.png',
+			backgroundImage: '/backgrounds/bg3.jpg',
 			text: 'ТОВАР 3',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'

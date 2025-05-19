@@ -17,7 +17,7 @@ export async function createSessionCookie(token) {
     // console.log("=============created cookie=================");
     // console.log(await token);
     //     console.log("=============created cookie=================");
-    cookieStore.set(process.env.SESSION_COOKIE_NAME, token, {httpOnly: true, secure: true, sameSite: 'strict' });
+    cookieStore.set(process.env.SESSION_COOKIE_NAME, token, { httpOnly: true, secure: true, sameSite: 'strict' });
     revalidatePath('/', 'layout');
 }
 export async function checkIfAdmin() {
@@ -33,7 +33,7 @@ export async function checkIfAdmin() {
     // console.log("Type of session value:", typeof session.value);
     try {
         // Assuming session.value contains a JWT token
-        const decoded = jwt.verify((await session).value, process.env.SECRET_TOKEN_JWT);
+        const decoded = jwt.verify(session.value, process.env.SECRET_TOKEN_JWT);
         // console.log(decoded.role === true);
         return decoded.role === true;
     } catch (error) {
@@ -47,16 +47,11 @@ export async function LogOut() {
 }
 export async function clearSessionCookie() {
     const cookieStore = await cookies();
-    const session = await getSessionCookie();
-    if (session) {
-        // console.log('clearing session cookie');
-        // console.log(session);
-        cookieStore.delete(process.env.SESSION_COOKIE_NAME);
-        revalidatePath('/', 'layout');
-    }    
+    cookieStore.delete(process.env.SESSION_COOKIE_NAME);
+    revalidatePath('/', 'layout');
 }
 
-export async function getSessionCookie(){
+export async function getSessionCookie() {
     const cookieStore = await cookies();
     const sessionCookie = cookieStore.get(process.env.SESSION_COOKIE_NAME);
     // const session = sessionCookie ? JSON.parse(sessionCookie.value) : [];
@@ -68,7 +63,7 @@ export async function getSessionCookie(){
 export async function getUserID() {
 
     const cookie = await getSessionCookie();
-    if(cookie){
+    if (cookie) {
         // console.log("getting id backend")
         const decoded = jwt.verify(cookie.value, process.env.SECRET_TOKEN_JWT);
         // console.log(decoded);
@@ -95,10 +90,10 @@ export async function addToCart(product) {
         // console.log(cart[existingProductIndex].quantity, quantity)
         if (cart[existingProductIndex].quantity !== quantity) {
             // console.log('changed quantity');
-            if(quantity === 0){
+            if (quantity === 0) {
                 cart.splice(existingProductIndex, 1);
             }
-            else{
+            else {
                 cart[existingProductIndex].quantity = quantity;
                 cart[existingProductIndex].unit_price = unit_price;
             }
@@ -121,12 +116,22 @@ export async function removeFromCart(productId) {
         cart.splice(existingProductIndex, 1);
     }
     cookieStore.set(CART_COOKIE_NAME, JSON.stringify(cart), { maxAge: 60 * 60 * 24 * 7 });
-    
+
+}
+export async function clearCart() {
+    const cookieStore = await cookies();
+    cookieStore.delete(process.env.CART_COOKIE_NAME);
+    revalidatePath('/', 'layout');
+
 }
 export async function getCart() {
     const cookieStore = await cookies();
     const cartCookie = cookieStore.get(CART_COOKIE_NAME);
-    const cart = cartCookie ? JSON.parse(cartCookie.value) : [];
+    console.log("cc", cartCookie);
+    let cart = [];
+    if(cartCookie && cartCookie.value != ""){
+        cart = cartCookie ? JSON.parse(cartCookie.value) : [];
+    }
     // console.log('got a cart!');
     // console.log(cart);
     return cart;
