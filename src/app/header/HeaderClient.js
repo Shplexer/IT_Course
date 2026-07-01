@@ -2,7 +2,7 @@
 import './header.css';
 import '../../../public/general.css';
 import LoginOverlay from '../login/page';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import Link from 'next/link'
 export default function Header({ numToDisplay }) {
@@ -62,7 +62,9 @@ function Contacts({ numToDisplay }) {
 				</div>
 				<div className='button-container'>
 					<div className='login-icon'>
-						<LoginOverlay />
+						<Suspense fallback={<div>Loading...</div>}>
+							<LoginOverlay />
+						</Suspense>
 					</div>
 					<div className="cart-icon">
 						<Link href={'/cart'}>
