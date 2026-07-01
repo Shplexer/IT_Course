@@ -11,11 +11,24 @@ export async function createSessionCookie(token) {
     const cookieStore = await cookies();
     const session = await getSessionCookie();
     if (session) {
-
         await clearSessionCookie();
     }
 
-    cookieStore.set(process.env.SESSION_COOKIE_NAME, token, { httpOnly: true, secure: true, sameSite: 'strict' });
+    console.log('Setting session cookie:', process.env.SESSION_COOKIE_NAME);
+    console.log('Environment:', process.env.NODE_ENV);
+    
+    cookieStore.set(process.env.SESSION_COOKIE_NAME, token, { 
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+    });
+    
+    // Verify it was set
+    const checkCookie = cookieStore.get(process.env.SESSION_COOKIE_NAME);
+    console.log('Cookie set successfully:', !!checkCookie);
+    
     revalidatePath('/', 'layout');
 }
 export async function checkIfAdmin() {
