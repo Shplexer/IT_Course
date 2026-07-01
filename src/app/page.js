@@ -25,8 +25,8 @@ function PromoTab() {
 	const [oppositeDirection, setOppositeDirection] = useState('prev');
 	const promos = [
 		{
-			productImage: '/products/prod-1.png',
-			backgroundImage: '/bg/bg1.jpg',
+			productImage: '/img/products/prod-1.png',
+			backgroundImage: '/img/bg/bg1.jpg',
 			text: 'ТОВАР 1',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
