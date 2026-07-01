@@ -127,13 +127,15 @@ function GridLayout() {
 			id: 3,
             text: 'Быстрая доставка',
 			subtext: sampleText,
-			icon: './icons/fast-delivery.png',
+			icon: '/icons/fast-delivery.png',
 		},
 		{
 			id: 4,
             text: 'Большой опыт работы',
 			subtext: sampleText,
-			icon: './icons/experienced.png',
+			// icon: './icons/experienced.png',
+			icon: '/products/trash.png'
+
 		}
 
 	];
