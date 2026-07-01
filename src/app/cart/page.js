@@ -31,7 +31,7 @@ export default async function Cart() {
                                 <Link href={`/shop/${product.prodid}`} key={`link-${product.prodid}-${index}`} style={{ display: `flex` }}>
                                     <div className={styles["product-image-container"]}>
                                         <img
-                                            src={`/products/${product.picpath}` || './products/default.png'}
+                                            src={`/img/products/${product.picpath}` || '/img/products/default.png'}
                                             alt={product.name}
                                             className={styles["product-image"]}
                                         />

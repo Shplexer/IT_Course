@@ -9,7 +9,7 @@ export default function DeleteButton({ productId }) {
 
   return (
     <img 
-      src="/icons/close.png" 
+      src="/img/icons/close.png" 
       className={styles["delete-icon"]} 
       onClick={handleDelete}
       alt="Delete item"

@@ -346,7 +346,7 @@ export default function ProductEditor({
             {imagePreview && (
               <div className={styles.imagePreview}>
                 <img
-                  src={`/products/${imagePreview}`}
+                  src={`/img/products/${imagePreview}`}
 
 
                   alt="Товар"

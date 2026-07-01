@@ -29,7 +29,7 @@ export async function sendOrderMail(email, orderData) {
               <tr>
                 <!-- Product Image -->
                 <td width="150" valign="top" style="padding-right: 20px;">
-                  <img src="${product.picpath || './products/default.png'}" alt="${product.name}" style="width: 100%; max-width: 150px; height: auto; display: block;" />
+                  <img src="/img/${product.picpath || '/img/products/default.png'}" alt="${product.name}" style="width: 100%; max-width: 150px; height: auto; display: block;" />
                 </td>
                 
                 <!-- Product Details -->

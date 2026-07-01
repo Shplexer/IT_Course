@@ -24,7 +24,7 @@ export default async function ProductId({ params }) {
                     <div className={styles["product-image-container"]}>
                         <img 
                             className={styles["product-img"]} 
-                            src={`/products/${product.pic_path}`} 
+                            src={`/img/products/${product.pic_path}`} 
                             alt={product.name}
                         />
                     </div>

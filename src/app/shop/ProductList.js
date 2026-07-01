@@ -27,7 +27,7 @@ export default async function ProductList({ filters }) {
               <Link href={`shop/${product.prodid}`}>
                 <img
                   className={styles["products-item-pic"]}
-                  src={`/products/${product.picpath}` || '/products/default.png'}
+                  src={`/img/products/${product.picpath}` || '/img/products/default.png'}
                   alt={product.name}
                 />
                 <h3 className={styles["products-item-name"]}>{product.name}</h3>

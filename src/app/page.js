@@ -32,15 +32,15 @@ function PromoTab() {
 			productLink: 'wikipedia.org'
 		},
 		{
-			productImage: '/products/prod-2.png',
-			backgroundImage: '/bg/bg2.jpg',
+			productImage: '/img/products/prod-2.png',
+			backgroundImage: '/img/bg/bg2.jpg',
 			text: 'ТОВАР 2',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
 		},
 		{
-			productImage: '/products/prod-3.png',
-			backgroundImage: '/bg/bg3.jpg',
+			productImage: '/img/products/prod-3.png',
+			backgroundImage: '/img/bg/bg3.jpg',
 			text: 'ТОВАР 3',
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
@@ -115,27 +115,27 @@ function GridLayout() {
 			id: 1,
 			text: 'Лучшие детали',
 			subtext: sampleText,
-			icon: './icons/best-parts.png',
+			icon: '/img/icons/best-parts.png',
 		},
 		{
 			id: 2,
             text: 'Дешевые цены',
 			subtext: sampleText,
-			icon: '/_onreza/image?url=/icons/cheap-prices.png&w=640',
-			// icon: './icons/cheap-prices.png',
+			// icon: '/_onreza/image?url=/icons/cheap-prices.png&w=640',
+			icon: '/img/icons/cheap-prices.png',
 		},
 		{
 			id: 3,
             text: 'Быстрая доставка',
 			subtext: sampleText,
-			icon: '/icons/fast-delivery.png',
+			icon: '/img/icons/fast-delivery.png',
 		},
 		{
 			id: 4,
             text: 'Большой опыт работы',
 			subtext: sampleText,
-			// icon: './icons/experienced.png',
-			icon: '/products/trash-can.png'
+			icon: '/img/icons/experienced.png',
+			// icon: '/products/trash-can.png'
 
 		}
 

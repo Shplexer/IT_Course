@@ -29,7 +29,7 @@ function Logo() {
 			<a href='/'>
 				<img
 					className='logoImage'
-					src='/icons/logo.jpg'
+					src='/img/icons/logo.jpg'
 				/>
 			</a>
 		</div>
@@ -48,14 +48,14 @@ function Contacts({ numToDisplay }) {
 			<div className='contact-actions'>
 				<div className="contact-item">
 					<img
-						src='/icons/envelope.png'
+						src='/img/icons/envelope.png'
 						className='contact-icon icon-with-text'
 					/>
 					<a className='text-with-icon' href='mailto:info@ventilation.com'>info@ventilation.com</a>
 				</div>
 				<div className="contact-item">
 					<img
-						src='/icons/phone-call.png'
+						src='/img/icons/phone-call.png'
 						className='contact-icon icon-with-text'
 					/>
 					<a className='text-with-icon' href='tel:+78005553535'>8 (800) 555-35-35</a>
@@ -84,7 +84,7 @@ function Addresses() {
 		<div className='addresses'>
 			<div className='addresses-item'>
 				<img
-					src='/icons/marker.png'
+					src='/img/icons/marker.png'
 					className='addresses-icon icon-with-text'
 				/>
 				<a className='text-with-icon' href='https://maps.google.com/?q=ventilation+company'>г. Санкт-Петербург, ул. Пушкина, д. Колотушкина</a>
@@ -115,7 +115,7 @@ function Menu() {
 							{item.isDroppable && (
 
 								<img
-									src='/icons/angle-small-down.png'
+									src='/img/icons/angle-small-down.png'
 									className='icon-with-text'
 									style={{
 										height: '1em',
