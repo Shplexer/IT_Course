@@ -1,5 +1,3 @@
-"use server"
-
 import { redirect } from "next/navigation";
 import { checkIfAdmin, getSessionCookie } from "../_lib/cookies";
 import { getOrders } from "../_lib/orders";

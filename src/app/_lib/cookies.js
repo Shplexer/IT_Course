@@ -45,12 +45,17 @@ export async function clearSessionCookie() {
 }
 
 export async function getSessionCookie() {
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get(process.env.SESSION_COOKIE_NAME);
-    // const session = sessionCookie ? JSON.parse(sessionCookie.value) : [];
-    // console.log('got a session cookie!');
-    // console.log(sessionCookie);
-    return sessionCookie;
+    try{
+        const cookieStore = await cookies();
+        const sessionCookie = cookieStore.get(process.env.SESSION_COOKIE_NAME);
+        // const session = sessionCookie ? JSON.parse(sessionCookie.value) : [];
+        // console.log('got a session cookie!');
+        // console.log(sessionCookie);
+        return sessionCookie;
+    } catch (error) {
+        console.error('Error getting session cookie:', error);
+        return { value: null };  // Return a safe default
+    }
 }
 
 export async function getUserID() {
