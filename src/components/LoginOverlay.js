@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import styles from './loginOverlay.module.css';
-import { checkLogin, registerUser } from '../_lib/users';
-import { checkIfAdmin, createSessionCookie, getSessionCookie } from '../_lib/cookies';
+import styles from '@/components/loginOverlay.module.css';
+import { checkLogin, registerUser } from '@/app/_lib/users';
+import { checkIfAdmin, createSessionCookie, getSessionCookie } from '@/app/_lib/cookies';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
