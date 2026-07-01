@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 //const nextConfig = {};
 const nextConfig = {
+  images:{
+    unoptimized: true,
+  },
     env: {
       DB_HOST: process.env.DB_HOST,
       DB_USER: process.env.DB_USER,
