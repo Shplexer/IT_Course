@@ -10,8 +10,9 @@ import AdminTypesControl from "./AdminTypesControl";
 
 export default async function UserAccount() {
     const session = await getSessionCookie();
-    if (!session.value) {
-        return redirect('/');
+   // Fix: Check if session exists AND has a value property
+    if (!session || !session.value) {
+        redirect('/');
     }
     else {
         const isAdmin = await checkIfAdmin();
