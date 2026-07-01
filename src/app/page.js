@@ -121,7 +121,8 @@ function GridLayout() {
 			id: 2,
             text: 'Дешевые цены',
 			subtext: sampleText,
-			icon: './icons/cheap-prices.png',
+			icon: '/_onreza/image?url=/icons/cheap-prices.png&w=640',
+			// icon: './icons/cheap-prices.png',
 		},
 		{
 			id: 3,
@@ -134,7 +135,7 @@ function GridLayout() {
             text: 'Большой опыт работы',
 			subtext: sampleText,
 			// icon: './icons/experienced.png',
-			icon: '/products/trash.png'
+			icon: '/products/trash-can.png'
 
 		}
 
