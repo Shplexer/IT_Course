@@ -220,7 +220,8 @@ async function executeQuery(query, params = []) {
   let client;
   try {
     client = await connection.connect();
-    console.log("params:", params);
+    console.log("!!!")
+    console.log("!!!!!!!!!!!!!!!!params:", params);
     const result = await client.query(query, params);
     console.log("ended");
     return result.rows;
@@ -357,6 +358,7 @@ export async function fetchProductsByIDs(productIds) {
     ${BASE_PRODUCT_QUERY}
     WHERE products.id = ANY($1::int[])
   `;
+  console.log(productIds)
   return await executeQuery(query, [productIds]);
 }
 

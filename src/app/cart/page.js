@@ -8,8 +8,12 @@ import { fetchProductsByIDs } from "../_lib/products";
 
 export default async function Cart() {
     const cart = await getCart();
-    const products = await fetchProductsByIDs([cart.map(item => item.productId)]);
-
+    let products = [];
+    console.log(cart);
+    if(cart.length > 0){
+        products = await fetchProductsByIDs([cart.map(item => item.productId)]);
+    }
+    console.log(products)
     return (
         <div className={styles["cart-container"]}>
             <h1 className={styles["cart-title"]}>Корзина</h1>
