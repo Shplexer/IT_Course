@@ -11,7 +11,7 @@ export default async function ProductId({ params }) {
     const cartItem = cart.find(item => item.productId === product.product_id);
     const initialQuantity = cartItem ? cartItem.quantity : 0;
     console.log(product)
-    // Combine properties and attributes into a single array for display
+
     const allSpecs = [
         ...(product.properties || []),
         ...(product.attributes || [])

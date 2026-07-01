@@ -11,7 +11,7 @@ export default function ProductEditor({
 }) {
   const [showSuccess, setShowSuccess] = useState(false);
   const onSave = async (productData) => {
-    // Implement the logic to save the product data
+
     console.log('Product saved:', productData);
     try {
       await saveProduct(productData);
@@ -20,7 +20,7 @@ export default function ProductEditor({
     }
   }
   const onCancel = () => {
-    // Implement the logic to cancel the product editing
+
     console.log('Product editing cancelled');
   }
   const onImageUpload = async (file) => {
@@ -45,12 +45,12 @@ export default function ProductEditor({
       const data = await getAttributesById(typeId);
       setTypeAttributes(data);
 
-      // Merge with existing attributes
+
       setFormData(prev => {
         const existingAttributes = prev.attributes || [];
 
         const newAttributes = data.map(attr => {
-          // Find if this attribute already exists in product
+
           const existingAttr = existingAttributes.find(a => a.name === attr.attribute_name);
           return {
             name: attr.attribute_name,
@@ -69,7 +69,7 @@ export default function ProductEditor({
     }
   };
   const [typeAttributes, setTypeAttributes] = useState([]);
-  // State for form fields
+
   const [formData, setFormData] = useState({
     id: product?.product_id || '',
     name: product?.name || '',
@@ -86,7 +86,7 @@ export default function ProductEditor({
     attributes: []
   });
 
-  // State for image upload
+  //image upload
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(product?.pic_path || '');
 
@@ -98,7 +98,7 @@ export default function ProductEditor({
         ? JSON.parse(product.properties)
         : product.properties || [];
 
-      // Initialize attributes from product if they exist
+
       const initialAttributes = product.attributes || [];
 
       setFormData(prev => ({
@@ -107,14 +107,14 @@ export default function ProductEditor({
         attributes: initialAttributes
       }));
 
-      // Fetch type attributes
+
       if (product.type_id) {
         fetchTypeAttributes(product.type_id);
       }
     }
   }, [product]);
 
-  // Handle input changes
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -123,12 +123,12 @@ export default function ProductEditor({
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // If product type changed, fetch its attributes
+
     if (name === 'productType') {
       fetchTypeAttributes(value);
     }
   };
-  // Handle property changes
+
   const handlePropertyChange = (index, field, value) => {
     const newProperties = [...formData.properties];
     newProperties[index][field] = value;
@@ -138,7 +138,7 @@ export default function ProductEditor({
     }));
   };
 
-  // Handle attribute changes
+
   const handleAttributeChange = (index, value) => {
     const attributeName = typeAttributes[index]?.attribute_name;
     if (!attributeName) return;
@@ -147,7 +147,7 @@ export default function ProductEditor({
     newAttributes[index] = { name: attributeName, value };
     setFormData(prev => ({ ...prev, attributes: newAttributes }));
   };
-  // Add new property
+
   const addProperty = () => {
     setFormData(prev => ({
       ...prev,
@@ -155,7 +155,7 @@ export default function ProductEditor({
     }));
   };
 
-  // Remove property
+
   const removeProperty = (index) => {
     const newProperties = [...formData.properties];
     newProperties.splice(index, 1);
@@ -165,7 +165,7 @@ export default function ProductEditor({
     }));
   };
 
-  // Handle image selection
+
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     console.log(file, "uploaded image")
@@ -183,22 +183,20 @@ export default function ProductEditor({
     }
   };
 
-  // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     let newPicPath = formData.picPath
 
-    // // Upload new image if selected
+
     if (imageFile) {
       newPicPath = imageFile;
     } else {
       newPicPath = product?.pic_path || '';
     }
     console.log(newPicPath);
-    // }
 
-    // Prepare the product data to save
     const productToSave = {
       ...formData,
       picPath: newPicPath,

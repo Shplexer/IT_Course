@@ -16,7 +16,7 @@ export default async function Shop({ searchParams }) {
   try {
     client = await connection.connect();
     
-    // Get price range
+
     prices = await connection.query(`
       SELECT
         MIN(CASE WHEN products.isonsale= TRUE THEN products.saleprice ELSE price END) AS price_min,
@@ -24,11 +24,10 @@ export default async function Shop({ searchParams }) {
       FROM products;
     `);
     
-    // Get attributes with values
+
     const attributesResult = await getAttributesWithValues();
     attributes = attributesResult;
-    
-    // Get all product types
+
     const typesResult = await connection.query('SELECT * FROM types ORDER BY name');
     types = typesResult.rows;
     

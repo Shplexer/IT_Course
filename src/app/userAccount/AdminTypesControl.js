@@ -4,16 +4,15 @@ import styles from "./userAccount.module.css";
 import { createNewAttribute, createNewType, deleteAttributeDB, deleteTypeDB, updateAttribute, updateType } from '../_lib/products';
 
 export default function AdminTypesControl({ initialTypes, initialAttributes }) {
-  // State for managing types and attributes
+
   const [types, setTypes] = useState(initialTypes);
   const [attributes, setAttributes] = useState(initialAttributes);
 
-  // State for tracking which items are being edited
+
   const [editingTypeId, setEditingTypeId] = useState(null);
   const [editingAttributeId, setEditingAttributeId] = useState(null);
 
 
-  // New state for creation forms
   const [showTypeForm, setShowTypeForm] = useState(false);
   const [showAttributeForm, setShowAttributeForm] = useState(false);
   const [newTypeForm, setNewTypeForm] = useState({ name: '' });
@@ -21,12 +20,12 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     product_type_id: types[0]?.id || '',
     attribute_name: ''
   });
-  // Toggle type creation form
+
   const toggleTypeForm = () => {
     setShowTypeForm(!showTypeForm);
-    setNewTypeForm({ name: '' }); // Reset form when toggling
+    setNewTypeForm({ name: '' }); 
   };
-  // Toggle attribute creation form
+
   const toggleAttributeForm = () => {
     setShowAttributeForm(!showAttributeForm);
     setNewAttributeForm({
@@ -34,17 +33,17 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
       attribute_name: ''
     });
   };
-  // Handle new type input changes
+
   const handleNewTypeInputChange = (e) => {
     setNewTypeForm({ ...newTypeForm, [e.target.name]: e.target.value });
   };
 
-  // Handle new attribute input changes
+
   const handleNewAttributeInputChange = (e) => {
     setNewAttributeForm({ ...newAttributeForm, [e.target.name]: e.target.value });
   };
 
-  // Create new type
+
   const createType = async () => {
     try {
       console.log(newTypeForm);
@@ -57,10 +56,10 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Create new attribute
+
   const createAttribute = async () => {
     try {
-      // Assuming CreateAttribute returns the new attribute with ID
+
       const newAttribute = await createNewAttribute(newAttributeForm);
       setAttributes([...attributes, newAttribute]);
       setShowAttributeForm(false);
@@ -73,20 +72,20 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Form state for edits
+
   const [typeEditForm, setTypeEditForm] = useState({ name: '' });
   const [attributeEditForm, setAttributeEditForm] = useState({
     product_type_id: '',
     attribute_name: ''
   });
 
-  // Handle type edit click
+
   const startEditingType = (type) => {
     setEditingTypeId(type.id);
     setTypeEditForm({ name: type.name });
   };
 
-  // Handle attribute edit click
+
   const startEditingAttribute = (attribute) => {
     setEditingAttributeId(attribute.id);
     setAttributeEditForm({
@@ -95,13 +94,13 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     });
   };
 
-  // Cancel editing
+
   const cancelEditing = () => {
     setEditingTypeId(null);
     setEditingAttributeId(null);
   };
 
-  // Save type changes
+
   const saveType = async (id) => {
     try {
       await updateType(id, typeEditForm);
@@ -115,7 +114,7 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Save attribute changes
+
   const saveAttribute = async (id) => {
     try {
       await updateAttribute(id, attributeEditForm);
@@ -132,7 +131,7 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Delete a type
+
   const deleteType = async (id) => {
     try {
       await deleteTypeDB(id);
@@ -143,7 +142,6 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Delete an attribute
   const deleteAttribute = async (id) => {
     try {
       await deleteAttributeDB(id);
@@ -153,7 +151,7 @@ export default function AdminTypesControl({ initialTypes, initialAttributes }) {
     }
   };
 
-  // Handle form input changes
+
   const handleTypeInputChange = (e) => {
     setTypeEditForm({ ...typeEditForm, [e.target.name]: e.target.value });
   };

@@ -45,9 +45,6 @@ function PromoTab() {
 			subtext: sampleText,
 			productLink: 'wikipedia.org'
 		}
-
-
-		// Add more image paths as needed
 	];
 
 	const nextImage = () => {
@@ -58,7 +55,7 @@ function PromoTab() {
 		setTimeout(() => {
 		  setCurrentImageIndex((prevIndex) => (prevIndex + 1) % promos.length);
 		  setIsAnimating(false);
-		}, 500); // This should match the transition duration in CSS
+		}, 500); 
 	  };
 	
 	  const prevImage = () => {
@@ -71,7 +68,7 @@ function PromoTab() {
 		setTimeout(() => {
 		  setCurrentImageIndex((prevIndex) => (prevIndex - 1 + promos.length) % promos.length);
 		  setIsAnimating(false);
-		}, 500); // This should match the transition duration in CSS
+		}, 500);
 	  };
 
 	  return (

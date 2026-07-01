@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getSessionCookie, getUserID, clearSessionCookie, LogOut } from "../_lib/cookies";
 import { useRouter } from "next/navigation";
-import styles from './userAccount.module.css'; // New CSS module for this component
+import styles from './userAccount.module.css';
 import { GetUserData, UpdateUserData } from "../_lib/users";
 
 export default function UserAccountForm() {
@@ -34,7 +34,7 @@ export default function UserAccountForm() {
     };
 
     const validatePhone = (phone) => {
-        if (!phone) return true; // phone is optional
+        if (!phone) return true;
         const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
         return re.test(phone);
     };
@@ -147,14 +147,14 @@ export default function UserAccountForm() {
                         });
                     } else {
                         console.error('User data not found');
-                        // Handle case where userData is undefined
+                      
                     }
                 } else {
                     setLoggedStatus(false);
                 }
             } catch (error) {
                 console.error('Error checking login status:', error);
-                // Handle error appropriately
+               
             } 
         };
 

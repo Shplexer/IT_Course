@@ -11,30 +11,23 @@ export async function createSessionCookie(token) {
     const cookieStore = await cookies();
     const session = await getSessionCookie();
     if (session) {
-        // console.log('session already exists');
+
         await clearSessionCookie();
     }
-    // console.log("=============created cookie=================");
-    // console.log(await token);
-    //     console.log("=============created cookie=================");
+
     cookieStore.set(process.env.SESSION_COOKIE_NAME, token, { httpOnly: true, secure: true, sameSite: 'strict' });
     revalidatePath('/', 'layout');
 }
 export async function checkIfAdmin() {
     const session = await getSessionCookie();
     if (!session) {
-        // console.log("no session")
+
         return false;
     }
 
-    // console.log("=========checking if admin===========");
-    // console.log("session", session)
-    // console.log("Session value:", session.value);
-    // console.log("Type of session value:", typeof session.value);
     try {
-        // Assuming session.value contains a JWT token
+
         const decoded = jwt.verify(session.value, process.env.SECRET_TOKEN_JWT);
-        // console.log(decoded.role === true);
         return decoded.role === true;
     } catch (error) {
         console.error("Error verifying token:", error);

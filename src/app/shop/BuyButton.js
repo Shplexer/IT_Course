@@ -34,7 +34,7 @@ export default function BuyButton({ productId, initQuantity = 0, totalQuantity, 
     setQuantity(1);
   }
 
-  // If totalQuantity is 0, show "товары закончились" button
+
   if (totalQuantity === 0) {
     return (
       <div className={styles["quantity-control"]}>

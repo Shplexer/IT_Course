@@ -14,7 +14,7 @@
     overflow: hidden;
 }
 
-/* Basic Product Info Section */
+
 .product-basic-info {
     display: flex;
     padding: 30px;
@@ -70,7 +70,7 @@
     color: #444;
 }
 
-/* Price Section */
+
 .price-section {
     margin: 15px 0;
 }
@@ -102,7 +102,7 @@
     font-weight: 600;
 }
 
-/* Product Actions */
+
 .product-actions {
     display: flex;
     align-items: center;
@@ -120,7 +120,7 @@
     font-weight: 600;
 }
 
-/* Key Specifications */
+
 .product-key-specs {
     margin-top: 20px;
     padding: 20px;
@@ -155,7 +155,6 @@
     color: #333;
 }
 
-/* Detailed Info Section */
 .product-detailed-info {
     padding: 30px;
     border-top: 1px solid #eee;
@@ -182,7 +181,6 @@
     margin-bottom: 15px;
 }
 
-/* Specifications Table */
 .product-specs-section h2 {
     font-size: 1.5rem;
     color: #2c3e50;
@@ -228,7 +226,6 @@
     color: #333;
 }
 
-/* Responsive Design */
 @media (max-width: 992px) {
     .product-basic-info {
         flex-direction: column;

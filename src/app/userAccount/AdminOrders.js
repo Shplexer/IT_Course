@@ -4,7 +4,7 @@ import { ChangeOrderStatus, DeleteOrder } from "../_lib/orders";
 import styles from "./userAccount.module.css";
 export default function AdminOrders({ orderList: initialOrderList }) {
     const [orders, setOrders] = useState(initialOrderList);
-    const [processing, setProcessing] = useState(null); // track which order is being processed
+    const [processing, setProcessing] = useState(null); 
 
     const handleCompleteOrder = async (id) => {
         setProcessing(id);
